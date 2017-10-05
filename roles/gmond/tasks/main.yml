@@ -1,0 +1,11 @@
+---
+- name: install gmond
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - ganglia-monitor
+- name: config gmond
+  template: src=gmond.conf dest=/etc/ganglia/
+  sudo: yes
+
+  notify: 
+    - restart gmond

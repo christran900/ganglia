@@ -1,0 +1,16 @@
+---
+- hosts: gmentad
+  remote_user: chris
+  become: yes
+
+  roles:
+    - common
+    - gmetad
+
+- hosts: gmond
+  remote_user: chris
+  become: yes
+
+  roles:
+    - common
+    - gmond

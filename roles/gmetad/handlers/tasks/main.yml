@@ -1,0 +1,11 @@
+---
+- name: restart httpd
+  service: name=apache2 state=restarted
+
+
+- name: restart gmond
+  service: name=gmond state=restarted
+
+
+- name: restart gmetad
+  service: name=gmetad state=restarted

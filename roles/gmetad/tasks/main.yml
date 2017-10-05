@@ -1,0 +1,28 @@
+---
+- name: add user
+  user: name=ganglia state=present createhome=yes
+  become: yes
+  become_method: "sudo"
+
+- name: install gmetad gmond
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - ganglia-monitor 
+    - rrdtool
+    - gmetad
+    - ganglia-webfrontend
+
+- name: set up the online graphical dashboard 
+  command: cp /etc/ganglia-webfrontend/apache.conf /etc/apache2/sites-enabled/ganglia.conf
+  
+- name: config gmetad.confg
+  file: src=gmetad.conf dest=/etc/ganglia
+  sudo: yes
+
+- name: config gmond.config
+  file: src=gmond.conf dest=/etc/ganglia
+  sudo: yes
+
+  notify: 
+    - restart gmetad
+  

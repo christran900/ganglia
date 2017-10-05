@@ -1,0 +1,14 @@
+---
+- name: remove old ganglia
+  apt: 
+    name={{ item }} 
+    state=absent
+    purge=yes
+    force=yes
+  with_items:
+    - ganglia-webfrontend
+    - rrdtool
+    - gmetad
+    - ganglia-monitor
+  sudo: yes
+
